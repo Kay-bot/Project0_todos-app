@@ -1,6 +1,26 @@
 //Add a todo
 let todoItems = [];
 
+function UpdateDom() {
+    let liHtmlList = '';
+
+    for(let item of todoItems){
+      let itemHtml = `
+        <li class="todo-item" data-key="${item.id}">
+           <input id="${item.id}" type="checkbox"/>
+           <label for="${item.id}" class="tick js-tick"></label>
+           <span>${item.text}</span>
+           <button class="delete-todo js-delete-todo">
+           <svg><use href="#delete-icon"></use></svg>
+          </button>
+        </li>`;
+  
+        liHtmlList += itemHtml;
+    }
+  
+    $('.js-todo-list').html(liHtmlList);      
+}
+
 function addTodo(text) {
   const todo = {
     text,
@@ -9,18 +29,17 @@ function addTodo(text) {
   };
 
   todoItems.push(todo);
-  const list = document.querySelector('.js-todo-list');
-  list.insertAdjacentHTML('beforeend', `
-    <li class="todo-item" data-key="${todo.id}">
-      <input id="${todo.id}" type="checkbox"/>
-      <label for="${todo.id}" class="tick js-tick"></label>
-      <span>${todo.text}</span>
-      <button class="delete-todo js-delete-todo">
-        <svg><use href="#delete-icon"></use></svg>
-      </button>
-    </li>
-  `);
-}
+
+  UpdateDom();
+};
+
+$(document).on('click', '.js-delete-todo', function() {
+    $(this).closest(`.todo-item`).remove();
+  
+  });
+UpdateDom();  
+
+
 
 const form = document.querySelector('.js-form');
 form.addEventListener('submit', event => {

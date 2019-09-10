@@ -23,7 +23,11 @@ html {
   }
   
   .container {
-    background-color:aquamarine;
+    background-color: aquamarine;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     width: 100%;
     max-width: 500px;
     margin: 0 auto;
@@ -36,12 +40,6 @@ html {
     overflow-y: auto;
   }
   
-  .app-title {
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 80px;
-    opacity: 0.5;
-  }
   
   svg {
     width: 64px;
