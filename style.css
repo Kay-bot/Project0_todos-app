@@ -23,7 +23,7 @@ html {
   }
   
   .container {
-    background-color: aquamarine;
+    background-color: rgb(243, 229, 150);
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -39,75 +39,38 @@ html {
     margin-bottom: 5vh;
     overflow-y: auto;
   }
-  
-  
-  svg {
-    width: 64px;
-    height: 64px;
-  }
-  
-  .todo-list {
-    list-style: none;
-    margin-bottom: 20px;
-  }
-  
-  .todo-item {
-    margin-bottom: 10px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  
-  .todo-item span {
-    flex-grow: 1;
-    margin-left: 10px;
-    margin-right: 10px;
-    font-size: 22px;
-  }
-  
-  .done span {
-    text-decoration: line-through;
-  }
-  
-  input[type="checkbox"] {
-    display: none;
-  }
-  
-  .tick {
-    width: 30px;
-    height: 30px;
-    border: 3px solid #333;
-    border-radius: 50%;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-  
-  .tick::before {
-    content: '✓';
-    font-size: 20px;
-    display: none;
-  }
-  
-  .done .tick::before {
-    display: inline;
-  }
-  
-  .delete-todo {
-    border: none;
-    background-color: transparent;
-    outline: none;
-    cursor: pointer;
-  }
-  
-  .delete-todo svg {
-    width: 30px;
-    height: 30px;
-    pointer-events: none;
-  }
-  
+
+     
+    input[type="text"] {
+      outline:0;
+      width:55%;
+      height:32px;
+      border:none;
+      font-size:18px;
+      font-weight:normal;
+      padding-left:10px;
+    }
+
+    ul {
+      padding:0;
+      text-align:left;
+      list-style:none;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+    }
+     
+    hr {
+      border-bottom:0;
+      margin:15px 0;
+    }
+
+    input[type="checkbox"] {width:30px; }
+    .remove {
+      float:right;
+      cursor:pointer;
+
+    }
+    .completed {text-decoration:line-through; }
+    
   form {
     width: 100%;
     display: flex;
@@ -121,7 +84,7 @@ html {
     border: 3px solid #333;
   }
   
-  .empty-state {
+   /*.empty-state {
     color: rgb(143, 140, 140);
     flex-direction: column;
     align-items: center;
@@ -129,10 +92,10 @@ html {
     display: none;
   }
   
-  .empty-state__title {
+    .empty-state__title {
     font-size: 22px;
   }
-  /* Add this below the other styles */
+  
   .todo-list:empty {
     display: none;
   }
@@ -140,3 +103,5 @@ html {
   .todo-list:empty + .empty-state {
     display: flex;
   }
+  */
+  

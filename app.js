@@ -1,55 +1,41 @@
-//Add a todo
-let todoItems = [];
+$(document).ready(function () {
+     
+    $('#todos-list').html(localStorage.getItem('listTodos'));
+       
+    $('.add-todos').submit(function(event) {
+      event.preventDefault();
 
-function UpdateDom() {
-    let liHtmlList = '';
+      var item = $('#todo-list-item').val();
+      if(item) {
+        $('#todos-list').append("<li><input class='checkbox' type='checkbox'/>" + item +"<a class='remove'>x</a><hr></li>");
+        localStorage.setItem('listTodos', $('#todos-list').html());
+        $('#todo-list-item').val("");
 
-    for(let item of todoItems){
-      let itemHtml = `
-        <li class="todo-item" data-key="${item.id}">
-           <input id="${item.id}" type="checkbox"/>
-           <label for="${item.id}" class="tick js-tick"></label>
-           <span>${item.text}</span>
-           <button class="delete-todo js-delete-todo">
-           <svg><use href="#delete-icon"></use></svg>
-          </button>
-        </li>`;
+      }
+    });
   
-        liHtmlList += itemHtml;
-    }
-  
-    $('.js-todo-list').html(liHtmlList);      
-}
+    $(document).on('change','.checkbox',function(){
+      if($(this).attr('checked')){
+        $(this).removeAttr('checked');
+      }else{
+        $(this).attr('checked','checked');
+      }
+      $(this).parent().toggleClass('completed');
+      localStorage.setItem('listTodos', $('#todos-list').html());
+    });
 
-function addTodo(text) {
-  const todo = {
-    text,
-    checked: false,
-    id: Date.now(),
-  };
-
-  todoItems.push(todo);
-
-  UpdateDom();
-};
-
-$(document).on('click', '.js-delete-todo', function() {
-    $(this).closest(`.todo-item`).remove();
-  
+    $(document).on('click','.remove',function(){
+      $(this).parent().remove();
+      localStorage.setItem('listTodos', $('#todos-list').html());
+    });
   });
-UpdateDom();  
+    //TODO: Use Support realtime data storage: https://www.firebase.com/ 
+    //TODO: Drag and drop change position 
+    //TODO: Toggle to show/hide 
+    //TODO: DB-click the list to edit the todo
+    //TODO: Add low medium and high priority 
+    //TODO: Add due date to the app 
+    //TODO: Add reminder 
+    
 
-
-
-const form = document.querySelector('.js-form');
-form.addEventListener('submit', event => {
-  event.preventDefault();
-  const input = document.querySelector('.form-control');
-
-  const text = input.value.trim();
-  if (text !== '') {
-    addTodo(text);
-    input.value = '';
-    input.focus();
-  }
-});
+    
