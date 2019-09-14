@@ -1,3 +1,5 @@
+var d = new Date();
+document.getElementById("datetime").innerHTML = d.toLocaleString();
 
 let tasks = [];
 
@@ -19,7 +21,6 @@ function createTask(newTaskName){
     window.localStorage.setItem('tasks', JSON.stringify( tasks ));
     
 }
-
 function updateDom() {
     let textEdit = '';
 
@@ -50,10 +51,14 @@ function updateDom() {
 
 $('.add-todos').submit(function(event) {
 	event.preventDefault(); 
-	let newTaskName = $('#todo-list-item').val();
-	$('#todo-list-item').val("");
-
-    createTask(newTaskName);
+    let newTaskName = $('#todo-list-item').val();
+    $('#todo-list-item').val("");
+    
+    if(newTaskName === '') {
+       alert ('dang it! put something!') 
+    } else {
+    createTask(newTaskName);} 
+    
     window.localStorage.setItem('tasks', JSON.stringify( tasks ));
     
 	updateDom();
@@ -86,14 +91,18 @@ $(document).on('submit', '.contentEdit', function(event){
 	let taskId = $(this).parent().attr('id');
 	let newTaskName = $(this).find('input').val();
     $(this).find('input').val("");
-
-  	for(let i=0; i<tasks.length; i++) {
-		  if(tasks[i].id === taskId) {
-            tasks[i].name = newTaskName;
-          }
-        window.localStorage.setItem('tasks', JSON.stringify( tasks ));
-        
-      }
+    
+    if(newTaskName === '') {
+        alert ('dang it! put something!') 
+     } else {
+        for(let i=0; i<tasks.length; i++) {
+            if(tasks[i].id === taskId) {
+              tasks[i].name = newTaskName;
+            }
+          window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+        }
+     }
+  	
     updateDom();
  });
 
@@ -115,12 +124,9 @@ if(localStorage.getItem('tasks')=== null) {
 
 updateDom();
 
-   
     //TODO: Drag and drop change position 
     //TODO: Toggle to show/hide 
     //TODO: Add low medium and high priority 
-    //TODO: Add due date to the app 
-    //TODO: Add reminder 
-    //TODO: Validation 
+    //TODO: Add reminder - pop-up another page
     //TODO: Use Support realtime data storage: https://www.firebase.com/ 
 

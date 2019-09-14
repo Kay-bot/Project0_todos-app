@@ -2,7 +2,20 @@
 html {
     box-sizing: border-box;
   }
-  
+  @media only screen and (max-width:800px) {
+    .main {
+      width: 80%;
+      padding: 0;
+    }
+    .right {
+      width: 100%;
+    }
+  }
+  @media only screen and (max-width:500px) {
+    .menu, .main, .right {
+      width: 100%;
+    }
+  }
   *, *::before, *::after {
     box-sizing: inherit;
     margin: 0;
@@ -11,8 +24,8 @@ html {
   
   body {
    
-   font-family: 'Segoe UI', Roboto, Oxygen-Sans,
-    Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;
+   font-family: 'Segoe UI', 'Roboto, Oxygen-Sans',
+    'Ubuntu, Cantarell', 'Helvetica Neue', sans-serif;
    line-height: 1.4;
   }
   
@@ -23,7 +36,7 @@ html {
   }
   
   .container {
-    background-color: rgb(243, 229, 150);
+    background-image: url("https://cdn.shopify.com/s/files/1/1660/9891/products/Z180605P1806_large.jpg?v=1528357007");
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
@@ -38,6 +51,7 @@ html {
     margin-top: 5vh;
     margin-bottom: 5vh;
     overflow-y: auto;
+    position: relative;
   }
 
     input[type="text"] {
@@ -51,7 +65,8 @@ html {
     }
 
     ul {
-      padding:0;
+      padding:10px;
+      color: whitesmoke;
       text-align:left;
       list-style:none;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
@@ -84,35 +99,28 @@ html {
   }
   
   li:hover {
-    background-color: gold;
+    background-color:rgb(49, 161, 39);
   }
 
-  div .bg-img-calender {
-      background-image: url("https://st2.depositphotos.com/1027675/5771/i/950/depositphotos_57716587-stock-photo-sunny-day-with-rainbow-background.jpg");
-      background-repeat: no-repeat;
-      background-size: 100%;
+  #bg-img-calender {
       width: 100%;
-      height: 30%;
+      height: 20%;
+      position: relative;
   }
- 
-   .empty-state {
-    color:black;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    display: none;
+  #dt-dis-pos{
+    color: rgb(21, 21, 22);
+    position: absolute;
+    bottom: 0;
+    right: 0;
   }
+  .add-todos{
+    position: absolute;
+    bottom: 5px;
+    right: 0;
+  }
+#bg-fade{
+    background-color: rgba(28, 44, 28, 0.650);
+    border-radius: 12px;
+}
   
-    .empty-state__title {
-    font-size: 22px;
-  }
-  
-  .todo-list:empty {
-    display: none;
-  }
-  
-  .todo-list:empty + .empty-state {
-    display: flex;
-  }
-  */
   
