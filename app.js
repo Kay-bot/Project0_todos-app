@@ -1,3 +1,4 @@
+
 let tasks = [];
 
 let itemMarkupTemplate = 
@@ -5,7 +6,7 @@ let itemMarkupTemplate =
   <input class='checkbox' type='checkbox' {{isChecked}}/>
   <span class="contentInfo">{{itemText}}</span>
   <form class="contentEdit" style="display:none"><input type="text" value="" /></form>
-  <a class='remove'>x</a>
+  <a class='remove'><i class="fa fa-trash" aria-hidden="true"></i></a>
   <hr>
 </li>`;
 
@@ -14,16 +15,18 @@ function createTask(newTaskName){
 		name: newTaskName,
 		done: false,
      	id: 'task_' + Date.now()
-	});
+    });
+    window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+    
 }
 
 function updateDom() {
-	let textEdit = '';
+    let textEdit = '';
 
 	for (let task of tasks) {
 
 		let liTextEdit = itemMarkupTemplate;
-    liTextEdit = liTextEdit.replace('{{taskId}}', task.id);
+        liTextEdit = liTextEdit.replace('{{taskId}}', task.id);
 		liTextEdit = liTextEdit.replace('{{itemText}}', task.name);
 
 		if(task.done){
@@ -38,18 +41,21 @@ function updateDom() {
 		textEdit += liTextEdit;
 	}
 	$('#todos-list').html(textEdit);
-
+    window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+   
 };
-updateDom();
+//updateDom();
+
 
 
 $('.add-todos').submit(function(event) {
 	event.preventDefault(); 
-
 	let newTaskName = $('#todo-list-item').val();
 	$('#todo-list-item').val("");
 
-	createTask(newTaskName);
+    createTask(newTaskName);
+    window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+    
 	updateDom();
 });
 
@@ -61,34 +67,35 @@ $(document).on('change', '.checkbox', function(){
 
 	for(let i=0; i<tasks.length; i++) {
 		if(tasks[i].id === taskId) {
-			tasks[i].done = isChecked;
-		}
-	}
+            tasks[i].done = isChecked;
+        }
+    window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+    }
+   
 	updateDom();
 });
 
 $(document).on('dblclick', '.taskListItem', function(){
-	let taskId = $(this).attr('id');
 	$(this).find('.contentInfo').hide();
-	$(this).find('.contentEdit').show();
+    $(this).find('.contentEdit').show();
+    window.localStorage.setItem('tasks', JSON.stringify( tasks ));
 });
 
 $(document).on('submit', '.contentEdit', function(event){
 	event.preventDefault(); 
 	let taskId = $(this).parent().attr('id');
-
 	let newTaskName = $(this).find('input').val();
-  $(this).find('input').val("");
+    $(this).find('input').val("");
 
   	for(let i=0; i<tasks.length; i++) {
 		  if(tasks[i].id === taskId) {
-		    tasks[i].name = newTaskName;
-		  }
-	  }
+            tasks[i].name = newTaskName;
+          }
+        window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+        
+      }
     updateDom();
  });
-
-updateDom();
 
 
 $(document).on('click', '.remove', function(){
@@ -96,8 +103,17 @@ $(document).on('click', '.remove', function(){
   tasks = tasks.filter(function(task){
     return task.id !== taskId;
   });
+  window.localStorage.setItem('tasks', JSON.stringify( tasks ));
   updateDom();
 });
+
+if(localStorage.getItem('tasks')=== null) {
+    tasks = [];
+} else {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+}
+
+updateDom();
 
    
     //TODO: Drag and drop change position 
