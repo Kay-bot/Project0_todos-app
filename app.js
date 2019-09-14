@@ -109,9 +109,11 @@ $(document).on('submit', '.contentEdit', function(event){
 
 $(document).on('click', '.remove', function(){
   let taskId = $(this).parent().attr('id');
-  tasks = tasks.filter(function(task){
-    return task.id !== taskId;
-  });
+  tasks = tasks.filter(task => task.id !== taskId);
+
+  //Todo: clear whitespace from the element
+  if (tasks.length === 0) tasks.innerHTML = '';
+
   window.localStorage.setItem('tasks', JSON.stringify( tasks ));
   updateDom();
 });
@@ -126,6 +128,7 @@ updateDom();
 
     //TODO: Drag and drop change position 
     //TODO: Toggle to show/hide 
+    //TODO: Add info icon right next to bin icon
     //TODO: Add low medium and high priority 
     //TODO: Add reminder - pop-up another page
     //TODO: Use Support realtime data storage: https://www.firebase.com/ 

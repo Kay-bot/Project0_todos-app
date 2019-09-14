@@ -126,12 +126,10 @@ html {
     display: none;
   }
   
-  .checklist-icon {
-    margin-bottom: 20px;
-  }
-  
   .empty-state__title, .empty-state__description {
     margin-bottom: 20px;
+    text-align: center;
+    color: whitesmoke;
   }
   .todo-list:empty {
     display: none;
