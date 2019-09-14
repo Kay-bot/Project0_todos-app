@@ -34,7 +34,16 @@ html {
     margin: 0;
     padding: 0;
   }
-  
+  header {
+    position: relative;
+    height: 25%;
+  }
+  #dt-dis-pos{
+    position: absolute;
+    color: rgb(21, 21, 22);
+    bottom: 0;
+    right: 0;
+  }
   .container {
     background-image: url("https://cdn.shopify.com/s/files/1/1660/9891/products/Z180605P1806_large.jpg?v=1528357007");
     height: 100%;
@@ -100,18 +109,6 @@ html {
   
   li:hover {
     background-color:rgb(49, 161, 39);
-  }
-
-  #bg-img-calender {
-      width: 100%;
-      height: 20%;
-      position: relative;
-  }
-  #dt-dis-pos{
-    color: rgb(21, 21, 22);
-    position: absolute;
-    bottom: 0;
-    right: 0;
   }
   .add-todos{
     position: absolute;
