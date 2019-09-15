@@ -15,6 +15,17 @@ html {
     .menu, .main, .right {
       width: 100%;
     }
+    .header {
+        float: none;
+        display: block;
+    } 
+    .header-right {
+        float: none;
+        display: block;
+      }
+    h1{
+        font-size:14px;
+    }
   }
   *, *::before, *::after {
     box-sizing: inherit;
@@ -22,22 +33,33 @@ html {
     padding: 0;
   }
   
+  h1{
+    word-wrap: break-word;
+    -webkit-hyphens: auto;
+    -moz-hyphens: auto;
+    -ms-hyphens: auto;
+    -o-hyphens: auto;
+    hyphens: auto;
+}
   body {
    
    font-family: 'Segoe UI', 'Roboto, Oxygen-Sans',
     'Ubuntu, Cantarell', 'Helvetica Neue', sans-serif;
    line-height: 1.4;
   }
-  
+
   *, *::before, *::after {
     box-sizing: inherit;
     margin: 0;
     padding: 0;
   }
-  header {
+  .header {
     position: relative;
     height: 25%;
-  }
+    display: flex;
+    flex-wrap:wrap;
+    text-align: center;
+    }
   #dt-dis-pos{
     position: absolute;
     color: rgb(21, 21, 22);
@@ -113,7 +135,7 @@ html {
   .add-todos{
     position: absolute;
     bottom: 5px;
-    right: 0;
+    right: 20px;
   }
 #bg-fade{
     background-color: rgba(28, 44, 28, 0.650);
