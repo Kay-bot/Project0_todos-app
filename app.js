@@ -41,11 +41,27 @@ function updateDom() {
 			
 		textEdit += liTextEdit;
 	}
-	$('#todos-list').html(textEdit);
+    $('#todos-list').html(textEdit);
+    
+    let myText = document.getElementById('empty-state');
+    if (tasks.length === 0) {
+    myText.style.display = "block";
+    }
+    else {
+    myText.style.display = "none";
+    }
+    
     window.localStorage.setItem('tasks', JSON.stringify( tasks ));
-   
+    
 };
-//updateDom();
+
+if(localStorage.getItem('tasks')=== null) {
+    tasks = [];
+} else {
+    tasks = JSON.parse(localStorage.getItem('tasks'));
+}
+
+updateDom();
 
 
 
@@ -93,7 +109,7 @@ $(document).on('submit', '.contentEdit', function(event){
     $(this).find('input').val("");
     
     if(newTaskName === '') {
-        alert ('dang it! put something!') 
+        alert ('oi! type something!') 
      } else {
         for(let i=0; i<tasks.length; i++) {
             if(tasks[i].id === taskId) {
@@ -109,22 +125,14 @@ $(document).on('submit', '.contentEdit', function(event){
 
 $(document).on('click', '.remove', function(){
   let taskId = $(this).parent().attr('id');
-  tasks = tasks.filter(task => task.id !== taskId);
-
-  //Todo: clear whitespace from the element
-  if (tasks.length === 0) tasks.innerHTML = '';
+  tasks = tasks.filter(task => task.id !== taskId)
 
   window.localStorage.setItem('tasks', JSON.stringify( tasks ));
   updateDom();
 });
 
-if(localStorage.getItem('tasks')=== null) {
-    tasks = [];
-} else {
-    tasks = JSON.parse(localStorage.getItem('tasks'));
-}
 
-updateDom();
+
 
     //TODO: Drag and drop change position 
     //TODO: Toggle to show/hide 
