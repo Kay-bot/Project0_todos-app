@@ -8,10 +8,10 @@ let itemMarkupTemplate =
 <input class='checkbox' type='checkbox' {{isChecked}}/>
   <span class="contentInfo">{{itemText}}</span>
 
-  <span class="modal" style="display:none">
+  <span class="modal">
   <span class = "priLeft">{{priority}}</span>
-  <span>{{contentEdit}}</span>
-  <span class = "dateBottom">{{remideDate}}</span></span>
+  <span class = "dateBottom">{{remideDate}}</span>
+  </span>
   
   <a class='remove'><i class="fa fa-trash" aria-hidden="true"></i></a>
   
@@ -40,8 +40,8 @@ function updateDom() {
 		let liTextEdit = itemMarkupTemplate;
         liTextEdit = liTextEdit.replace('{{taskId}}', task.id);
         liTextEdit = liTextEdit.replace('{{itemText}}', task.name);
-        // liTextEdit = liTextEdit.replace('{{remideDate}}', task.dueDate);
-        // liTextEdit = liTextEdit.replace('{{priority}}', task.priority);
+        liTextEdit = liTextEdit.replace('{{remideDate}}', task.dueDate);
+        liTextEdit = liTextEdit.replace('{{priority}}', task.priority);
 
 		if(task.done){
 			liTextEdit = liTextEdit.replace('{{isChecked}}', 'checked');
@@ -118,15 +118,19 @@ $(document).on('change', '.checkbox', function(){
 
 //start of box model
 let save = document.getElementsByClassName("saveBtn");
-let btn = document.getElementById("myInfo");
+let infoBtn = document.getElementById("myInfo");
 let modal = document.getElementById("myModal");
-let span = document.getElementsByClassName('close');
+let closeModal = document.getElementById('close-btn');
  
  $('li #myInfo').click(function(){
     let taskId = $(this).parent().parent().attr('id');
     currentTaskId = taskId;
     let taskValue = $(`#${taskId} .contentInfo`).text();
+    //let taskDate = $(`#${currentTaskId}.dateBottom`).val();
+    //let taskPriority = $(`#${currentTaskId}.priLeft`).val();
     $('#editField').val(taskValue);
+    //$('#chooseDate').val(taskDate);
+    //$('#selectPriority').val(taskPriority);
     modal.style.display = "block";
  })
  
@@ -137,12 +141,11 @@ let span = document.getElementsByClassName('close');
  })
 
 //TO DO: to add submit button and update reminder and priority to DOM
-$(document).on('click', '.saveBtn', function(event){
+$(document).on('click', '.submitBtn', function(event){
   event.preventDefault();  
 let newTaskName = $('#editField').val();
 let newTaskDate = $('#chooseDate').val();
 let newTaskPriority = $('#selectPriority').val();
-  $(this).find('.modal').val("");
   
   if(newTaskName === '') {
       alert ('Oi! Type something!') 
@@ -155,17 +158,17 @@ let newTaskPriority = $('#selectPriority').val();
           }
         window.localStorage.setItem('tasks', JSON.stringify( tasks ));
       }
-   }
-  
-  updateDom();
+    }
+    closeModal.click();
+    updateDom();
 });
+
 
 //end of box model
 
 $(document).on('click', '.remove', function(){
   let taskId = $(this).parent().attr('id');
   tasks = tasks.filter(task => task.id !== taskId)
-
   window.localStorage.setItem('tasks', JSON.stringify( tasks ));
   updateDom();
 });
