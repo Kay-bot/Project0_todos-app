@@ -1,16 +1,21 @@
 var d = new Date();
 document.getElementById("datetime").innerHTML = d.toLocaleString();
-
 let tasks = [];
 
 let itemMarkupTemplate = 
 `<li id="{{taskId}}" class='taskListItem {{isCheckedClass}}'>
-  <input class='checkbox' type='checkbox' {{isChecked}}/>
+<input class='checkbox' type='checkbox' {{isChecked}}/>
   <span class="contentInfo">{{itemText}}</span>
-  <form class="contentEdit" style="display:none"><input type="text" value="" /></form>
+
+  <span class="modal" style="display:none"><span class = "priLeft">{{priority}}</span><span>{{contentEdit}}</span><span class = "dateBottom">{{remideDate}}</span></span>
+  
   <a class='remove'><i class="fa fa-trash" aria-hidden="true"></i></a>
+  
+  <a class = "info"><i id = "myInfo" class="fa fa-info-circle" aria-hidden="true"></i></a>
   <hr>
 </li>`;
+
+let currentTaskId = undefined;
 
 function createTask(newTaskName){
 	tasks.push({
@@ -66,12 +71,11 @@ updateDom();
 
 
 $('.add-todos').submit(function(event) {
-	event.preventDefault(); 
     let newTaskName = $('#todo-list-item').val();
     $('#todo-list-item').val("");
     
     if(newTaskName === '') {
-       alert ('dang it! put something!') 
+       alert ('Oi! Type something!') 
     } else {
     createTask(newTaskName);} 
     
@@ -97,23 +101,31 @@ $(document).on('change', '.checkbox', function(){
 });
 
 $(document).on('dblclick', '.taskListItem', function(){
+  
 	$(this).find('.contentInfo').hide();
-    $(this).find('.contentEdit').show();
+  $(this).find('.modal').show();
+
+  
     window.localStorage.setItem('tasks', JSON.stringify( tasks ));
 });
 
-$(document).on('submit', '.contentEdit', function(event){
-	event.preventDefault(); 
-	let taskId = $(this).parent().attr('id');
-	let newTaskName = $(this).find('input').val();
-    $(this).find('input').val("");
+
+$(document).on('click', '.saveBtn', function(event){
+    console.log('hello')
+    event.preventDefault(); 
+  console.log('currentTaskId '+ currentTaskId);
+  let newTaskName = $('#editField').val();
+  //let newTaskDate = $('#chooseDate').val();
+  console.log('newTaskName: ' + newTaskName);
+    $(this).find('.modal').val("");
     
     if(newTaskName === '') {
-        alert ('oi! type something!') 
+        alert ('Oi! Type something!') 
      } else {
         for(let i=0; i<tasks.length; i++) {
-            if(tasks[i].id === taskId) {
+            if(tasks[i].id === currentTaskId) {
               tasks[i].name = newTaskName;
+              //tasks[i].dueDate = newTaskDate;
             }
           window.localStorage.setItem('tasks', JSON.stringify( tasks ));
         }
@@ -122,6 +134,30 @@ $(document).on('submit', '.contentEdit', function(event){
     updateDom();
  });
 
+//start of box model
+let btn = document.getElementById("myInfo");
+let modal = document.getElementById("myModal");
+let span = document.getElementsByClassName('close');
+ 
+ $('li #myInfo').click(function(){
+    let taskId = $(this).parent().parent().attr('id');
+    currentTaskId = taskId;
+    console.log('Setting currentTaskId: <' + currentTaskId + '>');
+    let taskValue = $(`#${taskId} .contentInfo`).text();
+    modal.style.display = "block";
+    $('#editField').val(taskValue);
+    //$('#chooseDate').val();
+ })
+ 
+ $(document).on('click', '.close', function(){
+  let taskId = $(this).parent().attr('id'); 
+  //let taskId = $(this).parent().parent().attr('id');
+    modal.style.display = "none";
+ })
+
+//TO DO: to add submit button and update reminder and priority to DOM
+
+//end of box model
 
 $(document).on('click', '.remove', function(){
   let taskId = $(this).parent().attr('id');
@@ -130,14 +166,4 @@ $(document).on('click', '.remove', function(){
   window.localStorage.setItem('tasks', JSON.stringify( tasks ));
   updateDom();
 });
-
-
-
-
-    //TODO: Drag and drop change position 
-    //TODO: Toggle to show/hide 
-    //TODO: Add info icon right next to bin icon
-    //TODO: Add low medium and high priority 
-    //TODO: Add reminder - pop-up another page
-    //TODO: Use Support realtime data storage: https://www.firebase.com/ 
 

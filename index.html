@@ -24,7 +24,7 @@
             </div>
             
             <div id="dt-dis-pos"> 
-                <p>Date/Time: <span id="datetime"></span></p>
+                <p>Date: <span id="datetime"></span></p>
             </div>
 
       </div>
@@ -39,6 +39,34 @@
           
         </div>
       </div>
+    
+    <div id="myModal" class="modal">
+
+        <div class="modal-content">
+
+          <span class="close">x</span>
+          <hr>
+          <form class ="EditModal"><input id="editField" type="text" onfocus="this.value=''" value="Existing todo list"></form>
+          <hr>
+          <form class="remind-me"> 
+            Remind me: <input id="chooseDate" type="date" name="remindMe">
+          </form>
+         <hr>
+        <form class="priority">
+          Priority
+        <select id="selectPriority"> 
+          <option value="none">None</option>
+          <option value="low">!</option>
+          <option value="medium">!!</option>
+          <option value="high!">!!!</option>
+        </select>
+        </form>
+          <hr>
+         <input class="saveBtn" type="Save" value="Submit">
+
+        </div>
+
+    </div>
 
       <form class="add-todos">
         <input type="text" id="todo-list-item" placeholder="What do you need to do today?">
@@ -50,7 +78,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-
     <script src="app.js"></script>
   </body>
 </html>
