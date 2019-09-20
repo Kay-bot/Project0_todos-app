@@ -1,5 +1,6 @@
 var d = new Date();
-document.getElementById("datetime").innerHTML = d.toLocaleString();
+document.getElementById('datetime').innerHTML = d.toLocaleString();
+
 let tasks = [];
 
 let itemMarkupTemplate = 
@@ -7,7 +8,10 @@ let itemMarkupTemplate =
 <input class='checkbox' type='checkbox' {{isChecked}}/>
   <span class="contentInfo">{{itemText}}</span>
 
-  <span class="modal" style="display:none"><span class = "priLeft">{{priority}}</span><span>{{contentEdit}}</span><span class = "dateBottom">{{remideDate}}</span></span>
+  <span class="modal" style="display:none">
+  <span class = "priLeft">{{priority}}</span>
+  <span>{{contentEdit}}</span>
+  <span class = "dateBottom">{{remideDate}}</span></span>
   
   <a class='remove'><i class="fa fa-trash" aria-hidden="true"></i></a>
   
@@ -21,9 +25,11 @@ function createTask(newTaskName){
 	tasks.push({
 		name: newTaskName,
 		done: false,
-     	id: 'task_' + Date.now()
+    id: 'task_' + Date.now(),
+    priority: null,
+    dueDate: null
     });
-    window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+   window.localStorage.setItem('tasks', JSON.stringify( tasks ));
     
 }
 function updateDom() {
@@ -33,7 +39,9 @@ function updateDom() {
 
 		let liTextEdit = itemMarkupTemplate;
         liTextEdit = liTextEdit.replace('{{taskId}}', task.id);
-		liTextEdit = liTextEdit.replace('{{itemText}}', task.name);
+        liTextEdit = liTextEdit.replace('{{itemText}}', task.name);
+        // liTextEdit = liTextEdit.replace('{{remideDate}}', task.dueDate);
+        // liTextEdit = liTextEdit.replace('{{priority}}', task.priority);
 
 		if(task.done){
 			liTextEdit = liTextEdit.replace('{{isChecked}}', 'checked');
@@ -56,15 +64,14 @@ function updateDom() {
     myText.style.display = "none";
     }
     
-    window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+   window.localStorage.setItem('tasks', JSON.stringify( tasks ));
     
 };
-
-if(localStorage.getItem('tasks')=== null) {
-    tasks = [];
-} else {
-    tasks = JSON.parse(localStorage.getItem('tasks'));
-}
+  if(localStorage.getItem('tasks')=== null) {
+      tasks = [];
+  } else {
+      tasks = JSON.parse(localStorage.getItem('tasks'));
+  }
 
 updateDom();
 
@@ -100,41 +107,17 @@ $(document).on('change', '.checkbox', function(){
 	updateDom();
 });
 
-$(document).on('dblclick', '.taskListItem', function(){
+// $(document).on('dblclick', '.taskListItem', function(){
   
-	$(this).find('.contentInfo').hide();
-  $(this).find('.modal').show();
+//     $(this).find('.contentInfo').hide();
+//     $(this).find('.modal').show();
+ 
+//     window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+// });
 
-  
-    window.localStorage.setItem('tasks', JSON.stringify( tasks ));
-});
-
-
-$(document).on('click', '.saveBtn', function(event){
-    console.log('hello')
-    event.preventDefault(); 
-  console.log('currentTaskId '+ currentTaskId);
-  let newTaskName = $('#editField').val();
-  //let newTaskDate = $('#chooseDate').val();
-  console.log('newTaskName: ' + newTaskName);
-    $(this).find('.modal').val("");
-    
-    if(newTaskName === '') {
-        alert ('Oi! Type something!') 
-     } else {
-        for(let i=0; i<tasks.length; i++) {
-            if(tasks[i].id === currentTaskId) {
-              tasks[i].name = newTaskName;
-              //tasks[i].dueDate = newTaskDate;
-            }
-          window.localStorage.setItem('tasks', JSON.stringify( tasks ));
-        }
-     }
-  	
-    updateDom();
- });
 
 //start of box model
+let save = document.getElementsByClassName("saveBtn");
 let btn = document.getElementById("myInfo");
 let modal = document.getElementById("myModal");
 let span = document.getElementsByClassName('close');
@@ -142,20 +125,40 @@ let span = document.getElementsByClassName('close');
  $('li #myInfo').click(function(){
     let taskId = $(this).parent().parent().attr('id');
     currentTaskId = taskId;
-    console.log('Setting currentTaskId: <' + currentTaskId + '>');
     let taskValue = $(`#${taskId} .contentInfo`).text();
-    modal.style.display = "block";
     $('#editField').val(taskValue);
-    //$('#chooseDate').val();
+    modal.style.display = "block";
  })
  
  $(document).on('click', '.close', function(){
   let taskId = $(this).parent().attr('id'); 
-  //let taskId = $(this).parent().parent().attr('id');
-    modal.style.display = "none";
+  currentTaskId = taskId;
+  modal.style.display = "none";
  })
 
 //TO DO: to add submit button and update reminder and priority to DOM
+$(document).on('click', '.saveBtn', function(event){
+  event.preventDefault();  
+let newTaskName = $('#editField').val();
+let newTaskDate = $('#chooseDate').val();
+let newTaskPriority = $('#selectPriority').val();
+  $(this).find('.modal').val("");
+  
+  if(newTaskName === '') {
+      alert ('Oi! Type something!') 
+   } else {
+      for(let i=0; i<tasks.length; i++) {
+          if(tasks[i].id === currentTaskId) {
+            tasks[i].name = newTaskName;
+            tasks[i].dueDate = newTaskDate;
+            tasks[i].priority = newTaskPriority;
+          }
+        window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+      }
+   }
+  
+  updateDom();
+});
 
 //end of box model
 

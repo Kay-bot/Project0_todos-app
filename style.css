@@ -76,31 +76,39 @@ body {
     border-bottom:0;
     margin:15px 0;
   }
-
+input[type="checkbox"], .remove, .info {
+  cursor:pointer;
+}
   input[type="checkbox"] {
+    float: left;
     position: relative;
     top: 7px;
     left: 5px;
     width:20px;
     height: 15px;
     }
-  .remove, .contentInfo, .info  {
-    position: relative;
-    top: 5px;
-    left: 5px;
-    width:30px;
-    height:20px;
-    cursor:pointer;
+    
+  .contentInfo {
+    padding-left: 10px;
   }
-
   .fa-info-circle {
    color: rgb(8, 115, 177);
   }
   .fa-trash {
     color: red;
+   
   }
    .remove, .info {
     float:right;
+   }
+   .info {
+     padding-right: 10px;
+   }
+   .priLeft {
+     float: left;
+   }
+   .dateBottom {
+    align-self: flex-end;
    }
   .completed {
     background-color: rgb(26, 196, 26); 
@@ -168,7 +176,7 @@ color: rgb(36, 107, 36);
 text-decoration: none;
 cursor: pointer;
 }
-.EditModal, .remind-me, .priority {
+.EditModal, .remind-me, .important {
 width: 100%;
 }
 
