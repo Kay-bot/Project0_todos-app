@@ -106,9 +106,14 @@ input[type="checkbox"], .remove, .info {
    }
    .priLeft {
      float: left;
+     padding-left: 10px;
+     color: red;
    }
    .dateBottom {
-    align-self: flex-end;
+    font-size: 14px;
+    color:rgba(255, 94, 0, 0.986);
+   }
+   
    }
   .completed {
     background-color: rgb(26, 196, 26); 
@@ -163,18 +168,18 @@ background-color: rgba(0,0,0,0.4);
 }
   
 .modal-content {
-position: relative;
-background-color: #fefefe;
-border: 1px solid #888;
-height: auto;
-width: 50%; 
-padding: 10px;
+  position: relative;
+  background-color: #fefefe;
+  border: 1px solid #888;
+  height: auto;
+  width: 50%; 
+  padding: 10px;
 }
 .saveBtn:hover, .close:hover,
 .saveBtn:focus, close:focus {
-color: rgb(36, 107, 36);
-text-decoration: none;
-cursor: pointer;
+  color: rgb(36, 107, 36);
+  text-decoration: none;
+  cursor: pointer;
 }
 .EditModal, .remind-me, .important {
 width: 100%;
@@ -184,7 +189,7 @@ width: 100%;
 text-align: right;
 }
 
-.saveBtn {
+.submitBtn {
 text-align: center;
 width: 30%;
 border-radius: 12px;

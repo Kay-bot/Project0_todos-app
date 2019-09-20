@@ -8,10 +8,10 @@ let itemMarkupTemplate =
 <input class='checkbox' type='checkbox' {{isChecked}}/>
   <span class="contentInfo">{{itemText}}</span>
 
-  <span class="modal">
-  <span class = "priLeft">{{priority}}</span>
-  <span class = "dateBottom">{{remideDate}}</span>
-  </span>
+ 
+  <span class = "priLeft" style: "display: none">{{priority}}</span>
+  <span class = "dateBottom" style: "display: none">{{remideDate}}</span>
+ 
   
   <a class='remove'><i class="fa fa-trash" aria-hidden="true"></i></a>
   
@@ -40,8 +40,17 @@ function updateDom() {
 		let liTextEdit = itemMarkupTemplate;
         liTextEdit = liTextEdit.replace('{{taskId}}', task.id);
         liTextEdit = liTextEdit.replace('{{itemText}}', task.name);
-        liTextEdit = liTextEdit.replace('{{remideDate}}', task.dueDate);
-        liTextEdit = liTextEdit.replace('{{priority}}', task.priority);
+        
+        
+    
+    if (task.priority === null) {
+      liTextEdit = liTextEdit.replace('{{priority}}', '');
+      liTextEdit = liTextEdit.replace('{{remideDate}}', '');
+    } 
+    else {
+      liTextEdit = liTextEdit.replace('{{priority}}', task.priority);
+      liTextEdit = liTextEdit.replace('{{remideDate}}',`Due: ${task.dueDate}`);
+    }
 
 		if(task.done){
 			liTextEdit = liTextEdit.replace('{{isChecked}}', 'checked');
@@ -99,21 +108,13 @@ $(document).on('change', '.checkbox', function(){
 
 	for(let i=0; i<tasks.length; i++) {
 		if(tasks[i].id === taskId) {
-            tasks[i].done = isChecked;
+          tasks[i].done = isChecked;
         }
     window.localStorage.setItem('tasks', JSON.stringify( tasks ));
     }
    
 	updateDom();
 });
-
-// $(document).on('dblclick', '.taskListItem', function(){
-  
-//     $(this).find('.contentInfo').hide();
-//     $(this).find('.modal').show();
- 
-//     window.localStorage.setItem('tasks', JSON.stringify( tasks ));
-// });
 
 
 //start of box model
@@ -126,11 +127,11 @@ let closeModal = document.getElementById('close-btn');
     let taskId = $(this).parent().parent().attr('id');
     currentTaskId = taskId;
     let taskValue = $(`#${taskId} .contentInfo`).text();
-    //let taskDate = $(`#${currentTaskId}.dateBottom`).val();
-    //let taskPriority = $(`#${currentTaskId}.priLeft`).val();
+    let taskDate = $(`#${currentTaskId}.dateBottom`).val();
+    let taskPriority = $(`#${currentTaskId}.priLeft`).val();
     $('#editField').val(taskValue);
-    //$('#chooseDate').val(taskDate);
-    //$('#selectPriority').val(taskPriority);
+    $('#chooseDate').val(taskDate);
+    $('#selectPriority').val(taskPriority);
     modal.style.display = "block";
  })
  
@@ -162,7 +163,6 @@ let newTaskPriority = $('#selectPriority').val();
     closeModal.click();
     updateDom();
 });
-
 
 //end of box model
 
