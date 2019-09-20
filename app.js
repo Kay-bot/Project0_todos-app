@@ -6,16 +6,16 @@ let tasks = [];
 let itemMarkupTemplate = 
 `<li id="{{taskId}}" class='taskListItem {{isCheckedClass}}'>
 <input class='checkbox' type='checkbox' {{isChecked}}/>
-  <span class="contentInfo">{{itemText}}</span>
 
- 
+<span class="contentInfo">{{itemText}}</span>
   <span class = "priLeft" style: "display: none">{{priority}}</span>
-  <span class = "dateBottom" style: "display: none">{{remideDate}}</span>
+  <a class='remove'><i class="fa fa-trash" style: "display: none" aria-hidden="true"></i></a>
+  <a class = "info"><i id = "myInfo" class="fa fa-info-circle" style: "display: none" aria-hidden="true"></i></a>
+
+<div class "text-bottom">
+<span class = "dateBottom" style: "display: none">{{remideDate}}</span>
+</div>
  
-  
-  <a class='remove'><i class="fa fa-trash" aria-hidden="true"></i></a>
-  
-  <a class = "info"><i id = "myInfo" class="fa fa-info-circle" aria-hidden="true"></i></a>
   <hr>
 </li>`;
 
@@ -33,37 +33,37 @@ function createTask(newTaskName){
     
 }
 function updateDom() {
-    let textEdit = '';
+  let textEdit = '';
 
-	for (let task of tasks) {
+for (let task of tasks) {
 
-		let liTextEdit = itemMarkupTemplate;
-        liTextEdit = liTextEdit.replace('{{taskId}}', task.id);
-        liTextEdit = liTextEdit.replace('{{itemText}}', task.name);
-        
-        
+  let liTextEdit = itemMarkupTemplate;
+      liTextEdit = liTextEdit.replace('{{taskId}}', task.id);
+      liTextEdit = liTextEdit.replace('{{itemText}}', task.name);
+      
+      
+  
+  if (task.priority === null || task.taskDate === null) {
+    liTextEdit = liTextEdit.replace('{{priority}}', '');
+    liTextEdit = liTextEdit.replace('{{remideDate}}', '');
+  } 
+  else {
+    liTextEdit = liTextEdit.replace('{{priority}}', task.priority);
+    liTextEdit = liTextEdit.replace('{{remideDate}}',`Due: ${task.dueDate}`);
+  }
+
+  if(task.done){
+    liTextEdit = liTextEdit.replace('{{isChecked}}', 'checked');
+    liTextEdit = liTextEdit.replace('{{isCheckedClass}}', 'completed');
+  }
+  else {
+    liTextEdit = liTextEdit.replace('{{isChecked}}', '');
+    liTextEdit = liTextEdit.replace('{{isCheckedClass}}', '');
+  }
     
-    if (task.priority === null) {
-      liTextEdit = liTextEdit.replace('{{priority}}', '');
-      liTextEdit = liTextEdit.replace('{{remideDate}}', '');
-    } 
-    else {
-      liTextEdit = liTextEdit.replace('{{priority}}', task.priority);
-      liTextEdit = liTextEdit.replace('{{remideDate}}',`Due: ${task.dueDate}`);
-    }
-
-		if(task.done){
-			liTextEdit = liTextEdit.replace('{{isChecked}}', 'checked');
-			liTextEdit = liTextEdit.replace('{{isCheckedClass}}', 'completed');
-		}
-		else {
-			liTextEdit = liTextEdit.replace('{{isChecked}}', '');
-			liTextEdit = liTextEdit.replace('{{isCheckedClass}}', '');
-		}
-			
-		textEdit += liTextEdit;
-	}
-    $('#todos-list').html(textEdit);
+  textEdit += liTextEdit;
+}
+  $('#todos-list').html(textEdit);
     
     let myText = document.getElementById('empty-state');
     if (tasks.length === 0) {
@@ -116,9 +116,8 @@ $(document).on('change', '.checkbox', function(){
 	updateDom();
 });
 
-
 //start of box model
-let save = document.getElementsByClassName("saveBtn");
+let save = document.getElementsByClassName("submitBtn");
 let infoBtn = document.getElementById("myInfo");
 let modal = document.getElementById("myModal");
 let closeModal = document.getElementById('close-btn');
@@ -126,9 +125,9 @@ let closeModal = document.getElementById('close-btn');
  $('li #myInfo').click(function(){
     let taskId = $(this).parent().parent().attr('id');
     currentTaskId = taskId;
-    let taskValue = $(`#${taskId} .contentInfo`).text();
-    let taskDate = $(`#${currentTaskId}.dateBottom`).val();
-    let taskPriority = $(`#${currentTaskId}.priLeft`).val();
+    let taskValue = $(`#${currentTaskId} .contentInfo`).text();
+    let taskDate = $(`#${currentTaskId }.dateBottom`).val();
+    let taskPriority = $(`#${currentTaskId }.priLeft`).val();
     $('#editField').val(taskValue);
     $('#chooseDate').val(taskDate);
     $('#selectPriority').val(taskPriority);
@@ -141,7 +140,6 @@ let closeModal = document.getElementById('close-btn');
   modal.style.display = "none";
  })
 
-//TO DO: to add submit button and update reminder and priority to DOM
 $(document).on('click', '.submitBtn', function(event){
   event.preventDefault();  
 let newTaskName = $('#editField').val();
