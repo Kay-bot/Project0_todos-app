@@ -11,68 +11,70 @@
 
   </head>
   <body>
+<div class="forMobileBox">
+  <div class="container">
 
-    <div class="container">
 
+    <div class="display-center">
 
-      <div class="display-center">
-
-            <div class="header">
-              <h1>
-                <i class="fa fa-check-square-o" aria-hidden="true"></i>My<span class="text-primary">Todo's</span>
-              </h1>
-            </div>
-            
-            <div id="dt-dis-pos"> 
-                <p>Date: <span id="datetime"></span></p>
-            </div>
-
-      </div>
+          <div class="header">
+            <h1>
+              <i class="fa fa-check-square-o" aria-hidden="true"></i>My<span class="text-primary">Todo's</span>
+            </h1>
+          </div>
           
+          <div id="dt-dis-pos"> 
+              <p>Date: <span id="datetime"></span></p>
+          </div>
 
-      <div id = "bg-fade">
-          <ul id="todos-list"> </ul>
-        <div id ="empty-state">
+    </div>
+        
 
-          <h2 class="empty-state__title">Add your first todo</h2>
-          <p class="empty-state__description">What do you want to get done today?</p>
-          
-        </div>
+    <div id = "bg-fade">
+        <ul id="todos-list"> </ul>
+      <div id ="empty-state">
+
+        <h2 class="empty-state__title">Add your first todo</h2>
+        <p class="empty-state__description">What do you want to get done today?</p>
+        
       </div>
-    
-    <div id="myModal" class="modal">
+    </div>
+  
+  <div id="myModal" class="modal">
 
-        <div class="modal-content">
+      <div class="modal-content">
 
-          <span id= "close-btn"class="close">x</span>
-          <hr>
-          <form class ="EditModal"><input id="editField" type="text" onfocus="this.value=''"></form>
-          <hr>
-          <form class="remind-me"> 
-            Remind me: <input id="chooseDate" type="date" name="remindMe">
-          </form>
-         <hr>
-        <form class="important">
-          Priority
-        <select id="selectPriority" class="pri-color"> 
-          <option value="">None</option>
-          <option value="!">Low</option>
-          <option value="!!">Medium</option>
-          <option value="!!!">High</option>
-        </select>
+        <span id= "close-btn"class="close">x</span>
+        <hr>
+        <form class ="EditModal"><input id="editField" type="text" onfocus="this.value=''"></form>
+        <hr>
+        <form class="remind-me"> 
+          Remind me: <input id="chooseDate" type="date" name="remindMe">
         </form>
-          <hr>
-         <input class="submitBtn" type="Save" value="Submit">
-
-        </div>
-
-    </div>
-
-      <form class="add-todos">
-        <input type="text" id="todo-list-item" placeholder="Enter your todo here">
+       <hr>
+      <form class="important">
+        Priority
+      <select id="selectPriority" class="pri-color"> 
+        <option value="">None</option>
+        <option value="!">Low</option>
+        <option value="!!">Medium</option>
+        <option value="!!!">High</option>
+      </select>
       </form>
-          
-    </div>
+        <hr>
+       <input class="submitBtn" type="Save" value="Submit">
+
+      </div>
+
+  </div>
+
+    <form class="add-todos">
+      <input type="text" id="todo-list-item" placeholder="Enter your todo here">
+    </form>
+        
+  </div>
+</div>
+   
 
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

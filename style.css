@@ -14,7 +14,10 @@ body {
   'Ubuntu, Cantarell', 'Helvetica Neue', sans-serif;
  line-height: 1.4;
 }
-
+.forMobileBox{
+  margin-left: 30%;
+  margin-right: 30%;
+}
 *, *::before, *::after {
   box-sizing: inherit;
   margin: 0;
@@ -22,7 +25,7 @@ body {
 }
 .display-center {
   text-align: center;
-  height: 30%;
+  height: 20%;
   display: block;
   }
  .header {

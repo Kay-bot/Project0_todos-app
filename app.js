@@ -4,20 +4,20 @@ document.getElementById('datetime').innerHTML = d.toLocaleString();
 let tasks = [];
 
 let itemMarkupTemplate = 
-`<li id="{{taskId}}" class='taskListItem {{isCheckedClass}}'>
-<input class='checkbox' type='checkbox' {{isChecked}}/>
+  `<li id="{{taskId}}" class='taskListItem {{isCheckedClass}}'>
+  <input class='checkbox' type='checkbox' {{isChecked}}/>
 
-<span class="contentInfo">{{itemText}}</span>
-  <span class = "priLeft" style: "display: none">{{priority}}</span>
-  <a class='remove'><i class="fa fa-trash" style: "display: none" aria-hidden="true"></i></a>
-  <a class = "info"><i id = "myInfo" class="fa fa-info-circle" style: "display: none" aria-hidden="true"></i></a>
+  <span class="contentInfo">{{itemText}}</span>
+    <span class = "priLeft" style: "display: none">{{priority}}</span>
+    <a class='remove'><i class="fa fa-trash" style: "display: none" aria-hidden="true"></i></a>
+    <a class = "info"><i id = "myInfo" class="fa fa-info-circle" style: "display: none" aria-hidden="true"></i></a>
 
-<div class "text-bottom">
-<span class = "dateBottom" style: "display: none">{{remideDate}}</span>
-</div>
- 
-  <hr>
-</li>`;
+  <div class "text-bottom">
+  <span class = "dateBottom" style: "display: none">{{remideDate}}</span>
+  </div>
+  
+    <hr>
+  </li>`;
 
 let currentTaskId = undefined;
 
@@ -103,15 +103,15 @@ $('.add-todos').submit(function(event) {
 
 $(document).on('change', '.checkbox', function(){
 	
-	let taskId = $(this).parent().attr('id');
-	let isChecked = $(this).is(':checked');
+    let taskId = $(this).parent().attr('id');
+    let isChecked = $(this).is(':checked');
 
-	for(let i=0; i<tasks.length; i++) {
-		if(tasks[i].id === taskId) {
-          tasks[i].done = isChecked;
-        }
-    window.localStorage.setItem('tasks', JSON.stringify( tasks ));
-    }
+    for(let i=0; i<tasks.length; i++) {
+      if(tasks[i].id === taskId) {
+            tasks[i].done = isChecked;
+          }
+      window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+      }
    
 	updateDom();
 });
@@ -134,16 +134,16 @@ let closeModal = document.getElementById('close-btn');
  })
  
  $(document).on('click', '.close', function(){
-  let taskId = $(this).parent().attr('id'); 
-  currentTaskId = taskId;
-  modal.style.display = "none";
+    let taskId = $(this).parent().attr('id'); 
+    currentTaskId = taskId;
+    modal.style.display = "none";
  })
 
 $(document).on('click', '.submitBtn', function(event){
   event.preventDefault();  
-let newTaskName = $('#editField').val();
-let newTaskDate = $('#chooseDate').val();
-let newTaskPriority = $('#selectPriority').val();
+    let newTaskName = $('#editField').val();
+    let newTaskDate = $('#chooseDate').val();
+    let newTaskPriority = $('#selectPriority').val();
   
   if(newTaskName === '') {
       alert ('Oi! Type something!') 
@@ -163,9 +163,9 @@ let newTaskPriority = $('#selectPriority').val();
 
 
 $(document).on('click', '.remove', function(){
-  let taskId = $(this).parent().attr('id');
-  tasks = tasks.filter(task => task.id !== taskId)
-  window.localStorage.setItem('tasks', JSON.stringify( tasks ));
+    let taskId = $(this).parent().attr('id');
+    tasks = tasks.filter(task => task.id !== taskId)
+    window.localStorage.setItem('tasks', JSON.stringify( tasks ));
   updateDom();
 });
 
