@@ -116,7 +116,6 @@ $(document).on('change', '.checkbox', function(){
 	updateDom();
 });
 
-//start of box model
 let save = document.getElementsByClassName("submitBtn");
 let infoBtn = document.getElementById("myInfo");
 let modal = document.getElementById("myModal");
@@ -162,7 +161,6 @@ let newTaskPriority = $('#selectPriority').val();
     updateDom();
 });
 
-//end of box model
 
 $(document).on('click', '.remove', function(){
   let taskId = $(this).parent().attr('id');

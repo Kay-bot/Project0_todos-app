@@ -14,7 +14,7 @@ Unsolved problems:
 Could have but won't have this time: 
 1. Word-wrap or limit characters in the input field. 
 2. Firebase storage
-3. Reminder texts for close due tasks. 
+3. Notification when to do items datelines are up. 
 4. Hidden info and trash icons only appear when mouse enter. 
 5. Drag and drop to re-order the lists. 
 6. Tasks counter
